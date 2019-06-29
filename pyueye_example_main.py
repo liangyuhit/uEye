@@ -37,6 +37,8 @@ from PyQt5 import QtGui
 from pyueye import ueye
 import cv2
 import numpy as np
+print(ueye.__version__)
+
 
 def process_image(self, image_data):
 
