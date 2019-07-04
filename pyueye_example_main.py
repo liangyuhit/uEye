@@ -37,7 +37,6 @@ from PyQt5 import QtGui
 from pyueye import ueye
 import cv2
 import numpy as np
-print(ueye.__version__)
 
 
 def process_image(self, image_data):
@@ -54,7 +53,7 @@ def process_image(self, image_data):
     
     if circles is not None:
         # convert the (x, y) coordinates and radius of the circles to integers
-        circles = np.round(circles[0, :]).astype("int")
+        circles = np.round(circles[0, :]).astype("int") 
         # loop over the (x, y) coordinates and radius of the circles
         for (x, y, r) in circles:
             # draw the circle in the output image, then draw a rectangle
@@ -101,4 +100,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 

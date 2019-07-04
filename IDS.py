@@ -10,7 +10,7 @@ import numpy as np
 import cv2
 import sys
 
-print(ueye.__version__)
+# print(ueye.__version__)
 
 #Variables
 hCam = ueye.HIDS(0)             #0: first available camera;  1-254: The camera with the specified camera ID
