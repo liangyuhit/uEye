@@ -11,3 +11,4 @@ import PyQt5
 from PyQt5.QtWidgets import QGraphicsScene, QApplication, QWidget
 
 print('20190724')
+print(1)
