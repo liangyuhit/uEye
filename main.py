@@ -18,7 +18,7 @@ def process_image(self, image_data):
 
     # reshape the image data as 1dimensional array
     image = image_data.as_1d_image()   
-    print(image) 
+#     print(image) 
     
     # show the image with Qt
     return QtGui.QImage(image.data,
