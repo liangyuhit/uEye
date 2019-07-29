@@ -109,10 +109,8 @@ class Camera:
         return ueye.is_AOI(self.h_cam, ueye.IS_AOI_IMAGE_SET_AOI, rect_aoi, ueye.sizeof(rect_aoi))
 
     def get_exposure(self):
-            rect_aoi = ueye.IS_RECT()
-            ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, rect_aoi, ueye.sizeof(rect_aoi))
-    
-            return rect_aoi
+        ret = ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE)
+        return ret
 
 
     def capture_video(self, wait=False):
