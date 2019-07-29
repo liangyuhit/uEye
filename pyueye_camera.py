@@ -112,7 +112,11 @@ class Camera:
         EXPOSURE = ueye.float()
         ret = ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
         return ret
-
+    
+    def set_exposure(self, exposure):
+        exposure = ueye.float(exposure)
+        ret = ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, exposure, ueye.sizeof((exposure)))
+        return ret
 
     def capture_video(self, wait=False):
         wait_param = ueye.IS_WAIT if wait else ueye.IS_DONT_WAIT
