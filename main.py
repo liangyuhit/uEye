@@ -5,9 +5,9 @@ Created on 04.07.2019
 @author: yu03
 '''
 
-from pyueye_example_camera import Camera
-from pyueye_example_utils import FrameThread
-from pyueye_example_gui import PyuEyeQtApp, PyuEyeQtView
+from pyueye_camera import Camera
+from pyueye_utils import FrameThread
+from pyueye_gui import PyuEyeQtApp, PyuEyeQtView
 from PyQt5 import QtGui
 from pyueye import ueye
 import cv2
@@ -41,7 +41,9 @@ def main():
     cam.init()
     cam.set_colormode(ueye.IS_CM_MONO8)
 #     print(ueye.IS_CM_BGR8_PACKED)
-    cam.set_aoi(0,0, 1280, 1024)
+    cam.set_aoi(0, 0, 1280, 1024)
+    aoi = cam.get_aoi()
+    print(aoi.x, aoi.y, aoi.width, aoi.height)
     cam.alloc()
     cam.capture_video()
 

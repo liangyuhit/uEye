@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 encoding/IDS.py=utf-8
 encoding/main.py=utf-8
+encoding/pyueye_camera.py=utf-8
+encoding/pyueye_gui.py=utf-8
+encoding/pyueye_utils.py=utf-8
 encoding/test.py=utf-8
