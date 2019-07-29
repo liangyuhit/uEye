@@ -33,7 +33,7 @@ def main():
 
     # a basic qt window
     view = PyuEyeQtView()
-    view.show()
+#     view.show()
     view.user_callback = process_image
 
     # camera class to simplify uEye API access
