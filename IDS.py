@@ -107,7 +107,7 @@ print('Exp')
 EXPOSURE = ueye.double()
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print(nRet)
-print(EXPOSURE)
+
 
 EXPOSURE = ueye.double(10)
 ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
@@ -115,7 +115,6 @@ ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof(
 EXPOSURE = ueye.double()
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print(nRet)
-print(EXPOSURE)
 
 
 # Prints out some information about the camera and the sensor
