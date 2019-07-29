@@ -44,7 +44,8 @@ def main():
     cam.set_aoi(0, 0, 1280, 1024)
     aoi = cam.get_aoi()
     print(aoi.x, aoi.y, aoi.width, aoi.height)
-    print(cam.get_exposure())
+#     print(cam.get_exposure())
+    print(cam.get_colormode())
     cam.alloc()
     cam.capture_video()
 
