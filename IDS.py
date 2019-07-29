@@ -104,15 +104,15 @@ height = rectAOI.s32Height
 
 ########################################################################################################################
 print('Exp')
-EXPOSURE = ueye.long()
+EXPOSURE = ueye.short()
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print(nRet)
 
 
-EXPOSURE = ueye.long(126)
+EXPOSURE = ueye.short(126)
 ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 
-EXPOSURE = ueye.long()
+EXPOSURE = ueye.short()
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print(nRet)
 
@@ -155,32 +155,32 @@ else:
 
 #---------------------------------------------------------------------------------------------------------------------------------------
  
-# Continuous image display
-while(nRet == ueye.IS_SUCCESS):
- 
-    # In order to display the image in an OpenCV window we need to...
-    # ...extract the data of our image memory
-    array = ueye.get_data(pcImageMemory, width, height, nBitsPerPixel, pitch, copy=False)
- 
-    # bytes_per_pixel = int(nBitsPerPixel / 8)
- 
-    # ...reshape it in an numpy array...
-    frame = np.reshape(array,(height.value, width.value, bytes_per_pixel))
- 
-    # ...resize the image by a half
-    frame = cv2.resize(frame,(0,0),fx=0.5, fy=0.5)
-     
-#---------------------------------------------------------------------------------------------------------------------------------------
-    #Include image data processing here
- 
-#---------------------------------------------------------------------------------------------------------------------------------------
- 
-    #...and finally display it
-    cv2.imshow("SimpleLive_Python_uEye_OpenCV", frame)
- 
-    # Press q if you want to end the loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+# # Continuous image display
+# while(nRet == ueye.IS_SUCCESS):
+#  
+#     # In order to display the image in an OpenCV window we need to...
+#     # ...extract the data of our image memory
+#     array = ueye.get_data(pcImageMemory, width, height, nBitsPerPixel, pitch, copy=False)
+#  
+#     # bytes_per_pixel = int(nBitsPerPixel / 8)
+#  
+#     # ...reshape it in an numpy array...
+#     frame = np.reshape(array,(height.value, width.value, bytes_per_pixel))
+#  
+#     # ...resize the image by a half
+#     frame = cv2.resize(frame,(0,0),fx=0.5, fy=0.5)
+#      
+# #---------------------------------------------------------------------------------------------------------------------------------------
+#     #Include image data processing here
+#  
+# #---------------------------------------------------------------------------------------------------------------------------------------
+#  
+#     #...and finally display it
+#     cv2.imshow("SimpleLive_Python_uEye_OpenCV", frame)
+#  
+#     # Press q if you want to end the loop
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
 #---------------------------------------------------------------------------------------------------------------------------------------
  
 # Releases an image memory that was allocated using is_AllocImageMem() and removes it from the driver management
