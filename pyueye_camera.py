@@ -114,7 +114,7 @@ class Camera:
         return ret
     
     def set_exposure(self, EXPOSURE):
-#         EXPOSURE = ueye.float(EXPOSURE)
+        EXPOSURE = ueye.float(EXPOSURE)
         return ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 
     def capture_video(self, wait=False):
