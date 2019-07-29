@@ -93,8 +93,9 @@ else:
 
 # Can be used to set the size and position of an "area of interest"(AOI) within an image
 nRet = ueye.is_AOI(hCam, ueye.IS_AOI_IMAGE_GET_AOI, rectAOI, ueye.sizeof(rectAOI))
-print(ueye.IS_SUCCESS)
+print('AOI')
 print(nRet)
+print(rectAOI)
 if nRet != ueye.IS_SUCCESS:
     print("is_AOI ERROR")
 
@@ -103,9 +104,10 @@ height = rectAOI.s32Height
 
 ########################################################################################################################
 rectEXPOSURE = ueye.IS_RECT()
-print(ueye.IS_EXPOSURE_CMD_GET_EXPOSURE)
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, rectEXPOSURE, ueye.sizeof((rectEXPOSURE)))
+print('Exp')
 print(nRet)
+print(rectEXPOSURE)
 
 
 # Prints out some information about the camera and the sensor
