@@ -29,12 +29,12 @@ def process_image(self, image_data):
 def main():
 
     # we need a QApplication, that runs our QT Gui Framework    
-    app = PyuEyeQtApp()
-
-    # a basic qt window
-    view = PyuEyeQtView()
+#     app = PyuEyeQtApp()
+# 
+#     # a basic qt window
+#     view = PyuEyeQtView()
 #     view.show()
-    view.user_callback = process_image
+#     view.user_callback = process_image
 
     # camera class to simplify uEye API access
     cam = Camera()
@@ -50,15 +50,15 @@ def main():
     cam.capture_video()
 
     # a thread that waits for new images and processes all connected views
-    thread = FrameThread(cam, view)
-    thread.start()
-
-    # cleanup
-    app.exit_connect(thread.stop)
-    app.exec_()
-
-    thread.stop()
-    thread.join()
+#     thread = FrameThread(cam, view)
+#     thread.start()
+# 
+#     # cleanup
+#     app.exit_connect(thread.stop)
+#     app.exec_()
+# 
+#     thread.stop()
+#     thread.join()
 
     cam.stop_video()
     cam.exit()
