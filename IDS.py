@@ -103,11 +103,11 @@ width = rectAOI.s32Width
 height = rectAOI.s32Height
 
 ########################################################################################################################
-rectEXPOSURE = ueye.IS_RECT()
-nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, rectEXPOSURE, ueye.sizeof((rectEXPOSURE)))
+EXPOSURE = ueye.float()
+nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print('Exp')
 print(nRet)
-print(rectEXPOSURE)
+print(EXPOSURE)
 
 
 # Prints out some information about the camera and the sensor
