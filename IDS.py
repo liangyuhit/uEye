@@ -104,15 +104,15 @@ height = rectAOI.s32Height
 
 ########################################################################################################################
 print('Exp')
-EXPOSURE = ueye.double()
+EXPOSURE = ueye.long()
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print(nRet)
 
 
-EXPOSURE = ueye.double(10)
+EXPOSURE = ueye.long(10)
 ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 
-EXPOSURE = ueye.double()
+EXPOSURE = ueye.long()
 nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 print(nRet)
 
