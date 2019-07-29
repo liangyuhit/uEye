@@ -109,7 +109,7 @@ nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.
 print(nRet)
 
 
-EXPOSURE = ueye.long(10)
+EXPOSURE = ueye.long(126)
 ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 
 EXPOSURE = ueye.long()
