@@ -12,13 +12,43 @@ from PyQt5 import QtGui
 from pyueye import ueye
 import cv2
 import numpy as np
+import datetime
 
+
+
+now = datetime.datetime.now()
+''' 
+    Header
+'''
+file_name = 'test.txt'####################################################################################
+f = open(file_name,'ab')
+
+# header = ['%s\n' %file_name,
+#       'Local current time : %s\n' %now.strftime("%Y-%m-%d %H:%M:%S"),
+#       '-------------------------------------------------\n',
+#       ]
+# 
+# with open(file_name,'w') as fid:
+#     fid.writelines(header)
 
 def process_image(self, image_data):
 
     # reshape the image data as 1dimensional array
     image = image_data.as_1d_image()   
-#     print(image) 
+    print(image[0][:5])
+#     str_out = np.array2string(image[0], separator=' ')[1:-1]+'\n'
+#     print(str_out)
+#     array_in = np.fromstring(str_out, dtype=int, sep=' ')
+#     print(array_in)
+#     out_str = ['%.4f, %.4f, %.4f, %.4f\n' %(Data_Ch1[i], Data_Ch2[i], Data_Ch3[i], Data_Ch4[i]) for i in range(len(Data))] 
+#     with open(file_name,'a') as fid:
+    np.savetxt(f, image[0][:5], newline=' ')
+# #         fid.write('\n')
+#     
+    
+#     np.save(f, image[0][:5])
+    # out_str = [' %.4f, %.4f, %.4f, %.4f, %.4f\n' %(Data_Ch1[i], Data_Ch2[i], Data_Ch3[i], Data_Ch4[i], Data_Ch5[i]) for i in range(len(Data))]    
+    # out_str = ['%.4f, %.4f, %.4f\n' %(Data_Ch3[i], Data_Ch4[i], Data_Ch5[i]) for i in range(len(Data))]    
 
     # show the image with Qt
     return QtGui.QImage(image.data,
@@ -40,36 +70,36 @@ def main():
     cam = Camera()
     cam.init()
     cam.set_colormode(ueye.IS_CM_MONO8)
-    print(cam.get_colormode())
+    print('Color Mode:', cam.get_colormode())
 
 #     print(ueye.IS_CM_BGR8_PACKED)
-    cam.set_aoi(0, 0, 1280, 1024)
+    cam.set_aoi(0, 0, 1280, 16)
     aoi = cam.get_aoi()
-    print(aoi.x, aoi.y, aoi.width, aoi.height)
+    print('AOI:', aoi.x, aoi.y, aoi.width, aoi.height)
     
-    print(cam.get_FrameTimeRange()[0], cam.get_FrameTimeRange()[1],cam.get_FrameTimeRange()[2])
+    print('Framerate Range:', cam.get_FrameTimeRange()[0], cam.get_FrameTimeRange()[1],cam.get_FrameTimeRange()[2])
     
+#     cam.set_fps(1/cam.get_FrameTimeRange()[0])
     cam.set_fps(1/cam.get_FrameTimeRange()[0])
-    print(cam.get_fps())
     
-    print(cam.get_exposure())
     cam.set_exposure(0.1)
-    print(cam.get_exposure())
+    print('Exposure Time:', cam.get_exposure())
     
-    
-    print(cam.get_colormode())
-    print(cam.get_colordepth()[0], cam.get_colordepth()[1])
+#     print(cam.get_colordepth()[0], cam.get_colordepth()[1])
     cam.alloc()
     cam.capture_video()
-
+    
     #a thread that waits for new images and processes all connected views
     thread = FrameThread(cam, view)
+#     thread.setDaemon(True)
     thread.start()
- 
+    
+    
     # cleanup
     app.exit_connect(thread.stop)
     app.exec_()
  
+    print('Frame Rate:', cam.get_fps())
     thread.stop()
     thread.join()
 

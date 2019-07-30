@@ -149,6 +149,8 @@ nRet = ueye.is_CaptureVideo(hCam, ueye.IS_DONT_WAIT)
 if nRet != ueye.IS_SUCCESS:
     print("is_CaptureVideo ERROR")
 
+
+
 # Enables the queue mode for existing image memory sequences
 nRet = ueye.is_InquireImageMem(hCam, pcImageMemory, MemID, width, height, nBitsPerPixel, pitch)
 if nRet != ueye.IS_SUCCESS:

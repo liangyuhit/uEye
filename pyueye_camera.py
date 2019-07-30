@@ -105,7 +105,7 @@ class Camera:
     def set_fps(self, fps):
         fps = ueye.double(fps)
         origin_fps = self.get_fps()
-        return ueye.is_SetFrameRate(self.h_cam, origin_fps, fps)
+        return ueye.is_SetFrameRate(self.h_cam, fps, fps)
     
     def get_aoi(self):
         rect_aoi = ueye.IS_RECT()

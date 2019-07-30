@@ -4,4 +4,5 @@ encoding/main.py=utf-8
 encoding/pyueye_camera.py=utf-8
 encoding/pyueye_gui.py=utf-8
 encoding/pyueye_utils.py=utf-8
+encoding/readout.py=utf-8
 encoding/test.py=utf-8
