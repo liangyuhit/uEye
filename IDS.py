@@ -103,19 +103,19 @@ width = rectAOI.s32Width
 height = rectAOI.s32Height
 
 ########################################################################################################################
-# print('Exp')
-# EXPOSURE = ueye.float()
-# nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
-# print(nRet)
-# print(EXPOSURE)
-# 
-# EXPOSURE = ueye.float(0.5)
-# ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
-# 
-# EXPOSURE = ueye.float()
-# nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
-# print(nRet)
-# print(EXPOSURE)
+print('Exp')
+EXPOSURE = ueye.double()
+nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
+print(nRet)
+print(EXPOSURE)
+ 
+EXPOSURE = ueye.double(0.5)
+ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
+ 
+EXPOSURE = ueye.double()
+nRet = ueye.is_Exposure(hCam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
+print(nRet)
+print(EXPOSURE)
 
 
 # Prints out some information about the camera and the sensor
@@ -139,6 +139,8 @@ else:
     else:
         # Set the desired color mode
         nRet = ueye.is_SetColorMode(hCam, m_nColorMode)
+        print(nRet)
+        print(m_nColorMode)
 
 
 
@@ -153,44 +155,46 @@ if nRet != ueye.IS_SUCCESS:
     print("is_InquireImageMem ERROR")
 else:
     print("Press q to leave the programm")
+    print(nRet)
+    print(pcImageMemory, MemID, width, height, nBitsPerPixel, pitch)
 
 #---------------------------------------------------------------------------------------------------------------------------------------
- 
-# Continuous image display
-while(nRet == ueye.IS_SUCCESS):
-  
-    # In order to display the image in an OpenCV window we need to...
-    # ...extract the data of our image memory
-    array = ueye.get_data(pcImageMemory, width, height, nBitsPerPixel, pitch, copy=False)
-  
-    # bytes_per_pixel = int(nBitsPerPixel / 8)
-  
-    # ...reshape it in an numpy array...
-    frame = np.reshape(array,(height.value, width.value, bytes_per_pixel))
-  
-    # ...resize the image by a half
-    frame = cv2.resize(frame,(0,0),fx=0.5, fy=0.5)
-      
-#---------------------------------------------------------------------------------------------------------------------------------------
-    #Include image data processing here
-  
-#---------------------------------------------------------------------------------------------------------------------------------------
-  
-    #...and finally display it
-    cv2.imshow("SimpleLive_Python_uEye_OpenCV", frame)
-  
-    # Press q if you want to end the loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-#---------------------------------------------------------------------------------------------------------------------------------------
- 
-# Releases an image memory that was allocated using is_AllocImageMem() and removes it from the driver management
-ueye.is_FreeImageMem(hCam, pcImageMemory, MemID)
- 
-# Disables the hCam camera handle and releases the data structures and memory areas taken up by the uEye camera
-ueye.is_ExitCamera(hCam)
- 
-# Destroys the OpenCv windows
-cv2.destroyAllWindows()
+#  
+# # Continuous image display
+# while(nRet == ueye.IS_SUCCESS):
+#   
+#     # In order to display the image in an OpenCV window we need to...
+#     # ...extract the data of our image memory
+#     array = ueye.get_data(pcImageMemory, width, height, nBitsPerPixel, pitch, copy=False)
+#   
+#     # bytes_per_pixel = int(nBitsPerPixel / 8)
+#   
+#     # ...reshape it in an numpy array...
+#     frame = np.reshape(array,(height.value, width.value, bytes_per_pixel))
+#   
+#     # ...resize the image by a half
+#     frame = cv2.resize(frame,(0,0),fx=0.5, fy=0.5)
+#       
+# #---------------------------------------------------------------------------------------------------------------------------------------
+#     #Include image data processing here
+#   
+# #---------------------------------------------------------------------------------------------------------------------------------------
+#   
+#     #...and finally display it
+#     cv2.imshow("SimpleLive_Python_uEye_OpenCV", frame)
+#   
+#     # Press q if you want to end the loop
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+# #---------------------------------------------------------------------------------------------------------------------------------------
+#  
+# # Releases an image memory that was allocated using is_AllocImageMem() and removes it from the driver management
+# ueye.is_FreeImageMem(hCam, pcImageMemory, MemID)
+#  
+# # Disables the hCam camera handle and releases the data structures and memory areas taken up by the uEye camera
+# ueye.is_ExitCamera(hCam)
+#  
+# # Destroys the OpenCv windows
+# cv2.destroyAllWindows()
 
 print()

@@ -19,7 +19,7 @@ def process_image(self, image_data):
     # reshape the image data as 1dimensional array
     image = image_data.as_1d_image()   
 #     print(image) 
-    
+
     # show the image with Qt
     return QtGui.QImage(image.data,
                         image_data.mem_info.width,
@@ -40,22 +40,25 @@ def main():
     cam = Camera()
     cam.init()
     cam.set_colormode(ueye.IS_CM_MONO8)
+    print(cam.get_colormode())
+
 #     print(ueye.IS_CM_BGR8_PACKED)
     cam.set_aoi(0, 0, 1280, 1024)
     aoi = cam.get_aoi()
     print(aoi.x, aoi.y, aoi.width, aoi.height)
     
+    print(cam.get_FrameTimeRange()[0], cam.get_FrameTimeRange()[1],cam.get_FrameTimeRange()[2])
+    
+    cam.set_fps(1/cam.get_FrameTimeRange()[0])
+    print(cam.get_fps())
+    
     print(cam.get_exposure())
-#     cam.set_exposure(0.1)
-#     print(cam.get_exposure())
-#     cam.set_exposure(1)
-#     print(cam.get_exposure())
-#     cam.set_exposure(100)
-#     print(cam.get_exposure())
-#     cam.set_exposure(0.01)
-#     print(cam.get_exposure())
-
+    cam.set_exposure(0.1)
+    print(cam.get_exposure())
+    
+    
     print(cam.get_colormode())
+    print(cam.get_colordepth()[0], cam.get_colordepth()[1])
     cam.alloc()
     cam.capture_video()
 

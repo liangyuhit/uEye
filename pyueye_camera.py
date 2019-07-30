@@ -36,7 +36,7 @@ Created on 29.07.2019
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #------------------------------------------------------------------------------
-
+import ctypes
 from pyueye import ueye
 from pyueye_utils import (uEyeException, Rect, get_bits_per_pixel,
                                   ImageBuffer, check)
@@ -89,11 +89,27 @@ class Camera:
             ret = ueye.is_ExitCamera(self.h_cam)
         if ret == ueye.IS_SUCCESS:
             self.h_cam = None
-
+    
+    def get_FrameTimeRange(self):
+        min = ueye.double()
+        max = ueye.double()
+        intervall = ueye.double()
+        ueye.is_GetFrameTimeRange(self.h_cam, min, max, intervall)
+        return min, max, intervall
+    
+    def get_fps(self):
+        fps = ueye.double()
+        ueye.is_GetFramesPerSecond(self.h_cam, fps)
+        return fps
+    
+    def set_fps(self, fps):
+        fps = ueye.double(fps)
+        origin_fps = self.get_fps()
+        return ueye.is_SetFrameRate(self.h_cam, origin_fps, fps)
+    
     def get_aoi(self):
         rect_aoi = ueye.IS_RECT()
         ueye.is_AOI(self.h_cam, ueye.IS_AOI_IMAGE_GET_AOI, rect_aoi, ueye.sizeof(rect_aoi))
-
         return Rect(rect_aoi.s32X.value,
                     rect_aoi.s32Y.value,
                     rect_aoi.s32Width.value,
@@ -108,13 +124,13 @@ class Camera:
 
         return ueye.is_AOI(self.h_cam, ueye.IS_AOI_IMAGE_SET_AOI, rect_aoi, ueye.sizeof(rect_aoi))
 
-    def get_exposure(self):
-        EXPOSURE = ueye.double()
-        ret = ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
-        return ret
+    def get_exposure(self): 
+        EXPOSURE = ueye.double() ### in ms
+        ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
+        return EXPOSURE
     
     def set_exposure(self, EXPOSURE):
-        EXPOSURE = ueye.double(EXPOSURE)
+        EXPOSURE = ueye.double(EXPOSURE) ### in ms
         return ueye.is_Exposure(self.h_cam, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, EXPOSURE, ueye.sizeof((EXPOSURE)))
 
     def capture_video(self, wait=False):
@@ -134,6 +150,12 @@ class Camera:
     def get_colormode(self):
         ret = ueye.is_SetColorMode(self.h_cam, ueye.IS_GET_COLOR_MODE)
         return ret
+    
+    def get_colordepth(self):
+        pnCol = ueye.int()
+        pnColMode = ueye.int()
+        ret = ueye.is_GetColorDepth(self.h_cam, pnCol, pnColMode)
+        return pnCol, pnColMode
 
     def get_format_list(self):
         count = ueye.UINT()
