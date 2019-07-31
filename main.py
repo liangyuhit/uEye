@@ -21,6 +21,12 @@ now = datetime.datetime.now()
 file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.txt'
 # f = open(file_name,'wb')
 # np.save(f, np.NaN)
+header = ['%s\n' %file_name,
+        'Local current time : %s\n' %now.strftime("%Y-%m-%d %H:%M:%S"),
+        '-------------------------------------------------\n',
+        ]
+f = open(file_name,'w')
+f.writelines(header)
 
 # header = ['%s\n' %file_name,
 #       'Local current time : %s\n' %now.strftime("%Y-%m-%d %H:%M:%S"),
@@ -33,16 +39,18 @@ file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.txt'
 def process_image(self, image_data):
 
     # reshape the image data as 1dimensional array
-    image = image_data.as_1d_image()   
+    image = image_data.as_1d_image()
     
 #     f = open(file_name,'ab')
 #     line = np.array(image[0])
 #     np.save(f, line)
     f = open(file_name,'a')
     line = np.array(image[0])
-    np.savetxt(f, line, fmt='%i', delimiter=',', newline=' ')
-    f.write('\n')
-    print(image[0][:5])
+    if len(line) == 1280:
+        np.savetxt(f, line, fmt='%i', delimiter=' ', newline=' ')
+        f.write('\n')
+        f.close()
+        print(line)
     # show the image with Qt
     return QtGui.QImage(image.data,
                         image_data.mem_info.width,
