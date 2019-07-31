@@ -18,9 +18,9 @@ import datetime
 
 now = datetime.datetime.now()
 
-file_name = 'test.npy'
-f = open(file_name,'wb')
-np.save(f, np.NaN)
+file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.npy'
+# f = open(file_name,'wb')
+# np.save(f, np.NaN)
 
 # header = ['%s\n' %file_name,
 #       'Local current time : %s\n' %now.strftime("%Y-%m-%d %H:%M:%S"),
@@ -34,8 +34,11 @@ def process_image(self, image_data):
 
     # reshape the image data as 1dimensional array
     image = image_data.as_1d_image()   
-    print(image[0][:5])
     
+    f = open(file_name,'ab')
+    line = np.array(image[0])
+    np.save(f, line)
+    print(image[0][:5])
     # show the image with Qt
     return QtGui.QImage(image.data,
                         image_data.mem_info.width,
@@ -65,8 +68,8 @@ def main():
     
     print('Framerate Range:', cam.get_FrameTimeRange()[0], cam.get_FrameTimeRange()[1],cam.get_FrameTimeRange()[2])
     
+    cam.set_fps(10)
 #     cam.set_fps(1/cam.get_FrameTimeRange()[0])
-    cam.set_fps(1/cam.get_FrameTimeRange()[0])
     
     cam.set_exposure(0.1)
     print('Exposure Time:', cam.get_exposure())
