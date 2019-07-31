@@ -18,7 +18,7 @@ import datetime
 
 now = datetime.datetime.now()
 
-file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.npy'
+file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.txt'
 # f = open(file_name,'wb')
 # np.save(f, np.NaN)
 
@@ -35,9 +35,13 @@ def process_image(self, image_data):
     # reshape the image data as 1dimensional array
     image = image_data.as_1d_image()   
     
-    f = open(file_name,'ab')
+#     f = open(file_name,'ab')
+#     line = np.array(image[0])
+#     np.save(f, line)
+    f = open(file_name,'a')
     line = np.array(image[0])
-    np.save(f, line)
+    np.savetxt(f, line, fmt='%i', delimiter=',', newline=' ')
+    f.write('\n')
     print(image[0][:5])
     # show the image with Qt
     return QtGui.QImage(image.data,
