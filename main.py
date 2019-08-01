@@ -13,26 +13,26 @@ from pyueye import ueye
 import cv2
 import numpy as np
 import datetime
-
+import time
 
 
 now = datetime.datetime.now()
-
+# time_stamp = time.time()
 file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.npy'
 
 num = 0
-
+f = open(file_name,'ab')
 def process_image(self, image_data):
     # reshape the image data as 1dimensional array
-    global num
+    
+    time_stamp = time.time()
+    global num, f
     num += 1
     print(num)
     image = image_data.as_1d_image()
-    f = open(file_name,'ab')
-    line = np.array(image[0])
-#     if len(line) == 1280:
+    
+    line = np.array([image[0], time_stamp])
     np.save(f, line, allow_pickle=True)
-#         print(line)
     # show the image with Qt
     return QtGui.QImage(image.data,
                         image_data.mem_info.width,
@@ -55,7 +55,7 @@ def main():
     print('Color Mode:', cam.get_colormode())
 
 #     print(ueye.IS_CM_BGR8_PACKED)
-    cam.set_aoi(0, 0, 1280, 16)
+    cam.set_aoi(0, 0, 1280, 4)
     aoi = cam.get_aoi()
     print('AOI:', aoi.x, aoi.y, aoi.width, aoi.height)
     
