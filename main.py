@@ -18,39 +18,21 @@ import datetime
 
 now = datetime.datetime.now()
 
-file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.txt'
-# f = open(file_name,'wb')
-# np.save(f, np.NaN)
-header = ['%s\n' %file_name,
-        'Local current time : %s\n' %now.strftime("%Y-%m-%d %H:%M:%S"),
-        '-------------------------------------------------\n',
-        ]
-f = open(file_name,'w')
-f.writelines(header)
+file_name = r'C:\Users\yu03\eclipse-workspace\git_demo\test.npy'
 
-# header = ['%s\n' %file_name,
-#       'Local current time : %s\n' %now.strftime("%Y-%m-%d %H:%M:%S"),
-#       '-------------------------------------------------\n',
-#       ]
-# 
-# with open(file_name,'w') as fid:
-#     fid.writelines(header)
+num = 0
 
 def process_image(self, image_data):
-
     # reshape the image data as 1dimensional array
+    global num
+    num += 1
+    print(num)
     image = image_data.as_1d_image()
-    
-#     f = open(file_name,'ab')
-#     line = np.array(image[0])
-#     np.save(f, line)
-    f = open(file_name,'a')
+    f = open(file_name,'ab')
     line = np.array(image[0])
-    if len(line) == 1280:
-        np.savetxt(f, line, fmt='%i', delimiter=' ', newline=' ')
-        f.write('\n')
-        f.close()
-        print(line)
+#     if len(line) == 1280:
+    np.save(f, line, allow_pickle=True)
+#         print(line)
     # show the image with Qt
     return QtGui.QImage(image.data,
                         image_data.mem_info.width,
@@ -58,7 +40,6 @@ def process_image(self, image_data):
                         QtGui.QImage.Format_Grayscale8)
 
 def main():
-
     # we need a QApplication, that runs our QT Gui Framework    
     app = PyuEyeQtApp()
  
@@ -80,8 +61,8 @@ def main():
     
     print('Framerate Range:', cam.get_FrameTimeRange()[0], cam.get_FrameTimeRange()[1],cam.get_FrameTimeRange()[2])
     
-    cam.set_fps(10)
-#     cam.set_fps(1/cam.get_FrameTimeRange()[0])
+#     cam.set_fps(10)
+    cam.set_fps(1/cam.get_FrameTimeRange()[0])
     
     cam.set_exposure(0.1)
     print('Exposure Time:', cam.get_exposure())
